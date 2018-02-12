@@ -10,8 +10,8 @@ class SimpleTable {
     }
 
     createBody() {
-        let htmlRows = '';
-        let elementRows = document.createElement('tbody');
+        let tableElement = document.getElementById(this.element);
+        let tbodyElement = document.createElement('tbody');
 
         let getClassName = (index, data) => {
             return data[index].class_name;
@@ -21,15 +21,15 @@ class SimpleTable {
             return data[index].data;
         };
 
-        let createCell = (obj) => {
+        let createTdElement = (obj) => {
             let _className = obj.class_name;
             let _style = obj.style;
             let _colspan = obj.colspan;
             let _text = obj.text;
             let cell = document.createElement('td');
-            let text = document.createTextNode(_text);
             cell.classList.add(_className);
-            cell.appendChild(text);
+            cell.innerHTML = _text;
+            cell.colSpan = _colspan;
             return cell;
         };
 
@@ -37,37 +37,40 @@ class SimpleTable {
             for (let i in this.data) {
                 let dataRow = this.data[i];
                 let columns = this.columns;
-                let htmlColumns = '';
-                let elementColumns = document.createElement('tr');
+                let trElement = document.createElement('tr');
                 for (let j in columns) {
                     let dataKey = getKey(j, columns);
                     let className = getClassName(j, columns);
                     let cell = '';
-                    let elementCell;
+                    let tdElement;
                     if (typeof (dataKey) === 'function') {
                         cell = dataKey(dataRow);
                     } else {
                         cell = dataRow[dataKey];
                     }
-                    elementCell = createCell({
+                    tdElement = createTdElement({
                         class_name: className,
                         text: cell
                     });
-                    elementColumns.appendChild(elementCell);
-                    // htmlColumns += `<td class="${className}">${cell}</td>`;
+                    trElement.appendChild(tdElement);
                 }
-                elementRows.appendChild(elementColumns);
-                // htmlRows += `<tr>${htmlColumns}</tr>`;
+                tbodyElement.appendChild(trElement);
             }
-            this.htmlBody = elementRows;
         } else {
             let text = this.noDataText;
-            htmlRows = `<tr>
-                            <td style="text-align: center;" colspan="${this.columnsLength}">${text}</td>
-                        </tr>`;
-            this.htmlBody = htmlRows;
+            let trElement = document.createElement('tr');
+            let tdElement;
+            tdElement = createTdElement({
+                text: text,
+                colspan: this.columnsLength,
+                style: {
+                    align: 'center'
+                }
+            });
+            trElement.appendChild(tdElement);
+            tbodyElement.appendChild(trElement);
         }
-        return this.htmlBody;
+        tableElement.appendChild(tbodyElement);
     }
 
     getRowData(index) {
