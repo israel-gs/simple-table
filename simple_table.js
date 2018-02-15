@@ -34,28 +34,26 @@ class SimpleTable {
         };
 
         if (this.dataLength > 0) {
-            for (let i in this.data) {
-                let dataRow = this.data[i];
-                let columns = this.columns;
+            let columns = this.columns;
+            (this.data).forEach((element) => {
                 let trElement = document.createElement('tr');
-                for (let j in columns) {
+                (columns).forEach((el, j) => {
                     let dataKey = getKey(j, columns);
                     let className = getClassName(j, columns);
                     let cell = '';
-                    let tdElement;
                     if (typeof (dataKey) === 'function') {
-                        cell = dataKey(dataRow);
+                        cell = dataKey(element);
                     } else {
-                        cell = dataRow[dataKey];
+                        cell = element[dataKey];
                     }
-                    tdElement = createTdElement({
+                    let tdElement = createTdElement({
                         class_name: className,
                         text: cell
                     });
                     trElement.appendChild(tdElement);
-                }
+                });
                 tbodyElement.appendChild(trElement);
-            }
+            });
         } else {
             let text = this.noDataText;
             let trElement = document.createElement('tr');
@@ -70,6 +68,7 @@ class SimpleTable {
             trElement.appendChild(tdElement);
             tbodyElement.appendChild(trElement);
         }
+        tableElement.removeChild(tableElement.getElementsByTagName('tbody')[0]);
         tableElement.appendChild(tbodyElement);
     }
 
