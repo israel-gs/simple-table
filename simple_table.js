@@ -68,7 +68,6 @@ class SimpleTable {
             trElement.appendChild(tdElement);
             tbodyElement.appendChild(trElement);
         }
-        tableElement.removeChild(tableElement.getElementsByTagName('tbody')[0]);
         tableElement.appendChild(tbodyElement);
     }
 
