@@ -10,7 +10,7 @@ class SimpleTable {
     }
 
     createBody() {
-        let tableElement = document.getElementById(this.element);
+        let tableElement = document.querySelector(this.element);
         let tbodyElement = document.createElement('tbody');
 
         let getClassName = (index, data) => {
