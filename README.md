@@ -26,7 +26,7 @@ let usersData = [
 ```javascript
 //you need to instantiate the class.
 let tableUser = new SimpleTable({
-            element: '#tbl-example' //id from the table
+            element: '#tbl-example', //id from the table
             data: usersData,
             no_data_text: 'No data.',
             columns: [
