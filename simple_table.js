@@ -1,3 +1,7 @@
+/**
+ * @author israel-gs <israelgs83@gmail.com>
+ * @license MIT
+ */
 'use strict';
 class SimpleTable {
     constructor(config) {
