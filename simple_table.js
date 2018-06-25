@@ -1,6 +1,9 @@
-/**
- * @author israel-gs <israelgs83@gmail.com>
- * @license MIT
+/*!
+ * simple-table
+ * https://github.com/israel-gs/simple-table
+ * MIT
+ *
+ * Copyright (C) 2018 José Israel Gutierrez Salazar https://github.com/israel-gs/
  */
 'use strict';
 class SimpleTable {
